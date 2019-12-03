@@ -5,6 +5,18 @@
     </head>
     <body onload="startGame()">
         <canvas id="board"></canvas>
+        <div id="rules">
+            <p>Each turn the players can move a piece or rotate it 90º in any direction. The pieces only can be moved to grey cells or their own color cells. After each move the tower of the player will shot. Each piece it's affected by the projectile in a different way:</p>
+            <ul>
+                <li>Towers: Absorbs the projectile, can't be destroyed.</li>
+                <li>Triangles: If the projectile impacts in the hypotenuse (longest side), it will be deviated 90º. If it impacts in any leg (shortest sides), the piece will be destroyed.</li>
+                <li>Diagonals: The projectile will be deviated 90º.</li>
+                <li>Shields: If the projectile impacts in the arc, it will be absorbed. Otherwise, the piece will be destroyed.</li>
+                <li>King: If the projectile impacts in any side, the piece will be destroyed and the player will lose.</li>
+            </ul>
+            <p>The players can destroy their own pieces, so be careful.</p>
+        </div>
+
         <script src="assets/scripts/King.js"></script>
         <script src="assets/scripts/Shield.js"></script>
         <script src="assets/scripts/Diagonal.js"></script>
