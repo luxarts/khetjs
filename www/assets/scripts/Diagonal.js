@@ -27,47 +27,42 @@ class Diagonal{
         const cell = this.options.cellSize;
         const space = this.options.spacing;
 
+        ctx.save();
         ctx.beginPath();
         switch(this.rotation){
             case 0:
             case 2:
-                // Top-left
-                ctx.moveTo(posX+space, posY+space);
-                // Top-quarter
-                ctx.lineTo(posX+cell/4, posY+space);
-                // Thirdquarter-right
-                ctx.lineTo(posX+cell-space, posY+cell*3/4);
-                // Bottom-right
-                ctx.lineTo(posX+cell-space, posY+cell-space);
-                // Bottom-thirdquarter
-                ctx.lineTo(posX+cell*3/4, posY+cell-space);
-                // Quarter-left
-                ctx.lineTo(posX+space, posY+cell/4);
-                // Complete
-                ctx.closePath();
                 break;
             case 1:
             case 3:
-                // Top-right
-                ctx.moveTo(posX+cell-space, posY+space);
-                // Quarter-right
-                ctx.lineTo(posX+cell-space, posY+cell/4);
-                // Bottom-quarter
-                ctx.lineTo(posX+cell/4, posY+cell-space);
-                // Bottom-left
-                ctx.lineTo(posX+space, posY+cell-space);
-                // Thirdquarter-left
-                ctx.lineTo(posX+space, posY+cell*3/4);
-                // Top-quarter
-                ctx.lineTo(posX+cell*3/4, posY+space);
-                // Complete
-                ctx.closePath();
+                // Move center
+                ctx.translate(posX+cell/2, posY+cell/2);
+                // Rotate
+                ctx.rotate(90*Math.PI/180);
+                // Move origin back
+                ctx.translate(-posX-cell/2, -posY-cell/2);
                 break;
         }
+        // Top-left
+        ctx.moveTo(posX+space, posY+space);
+        // Top-quarter
+        ctx.lineTo(posX+cell/4, posY+space);
+        // Thirdquarter-right
+        ctx.lineTo(posX+cell-space, posY+cell*3/4);
+        // Bottom-right
+        ctx.lineTo(posX+cell-space, posY+cell-space);
+        // Bottom-thirdquarter
+        ctx.lineTo(posX+cell*3/4, posY+cell-space);
+        // Quarter-left
+        ctx.lineTo(posX+space, posY+cell/4);
+        // Complete
+        ctx.closePath();
+
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#000000';
         ctx.stroke(); 
         ctx.fillStyle = this.player? this.options.colorP2 : this.options.colorP1;
         ctx.fill();
+        ctx.restore();
     }
 }
