@@ -73,4 +73,7 @@ class Triangle{
         ctx.fill();
         ctx.restore();
     }
+    shot(){
+
+    }
 }

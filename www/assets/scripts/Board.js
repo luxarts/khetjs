@@ -2,7 +2,7 @@ class Board{
     constructor(config){
         this.options = {
             element: document.getElementById('board'),
-            cellSize: 50,
+            cellSize: 75,
             rows: 8,
             cols: 10,
             cellP1: '#666666',
@@ -11,6 +11,7 @@ class Board{
         };
         this.pieces = [];
         if(config)Object.assign(this.options, this.options, config);
+        this.cleanPieces();
         this.draw();
     }
     draw(){
@@ -87,8 +88,12 @@ class Board{
         this.update();
     }
     update(){
-        for(let r=0 ; r<this.options.rows ; r++){
-            for(let c=0 ; c<this.options.cols ; c++){
+        // Redraw board
+        this.draw();
+
+        // Draw pieces
+        for(let r=0 ; r<this.pieces.length ; r++){
+            for(let c=0 ; c<this.pieces[r].length ; c++){
                 let piece = this.pieces[r][c];
 
                 if(piece !== null){
@@ -107,8 +112,29 @@ class Board{
                             break;
                         case "KING":
                             this.pieces[r][c] = new King({position: [c, r], rotation: piece.rotation, player: piece.player});
+                            break;
+                        default:
+                            if("draw" in piece){
+                                piece.draw();
+                            }
+                            break;
                     }
                 }
+            }
+        }
+    }
+    setPiece(piece){
+        this.pieces[piece.position[1]][piece.position[0]] = piece;
+    }
+    getPieceAt(col, row){
+        return this.pieces[row][col];
+    }
+    findTower(player){
+        for(let r=0 ; r<this.pieces.length ; r++){
+            for(let c=0 ; c<this.pieces[r].length ; c++){
+                if(this.pieces[r][c] !== null && this.pieces[r][c].constructor.name === "Tower" && this.pieces[r][c].player === player){
+                    return this.pieces[r][c];
+                } 
             }
         }
     }
