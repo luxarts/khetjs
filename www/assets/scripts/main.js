@@ -6,7 +6,7 @@ function startGame(){
     board = new Board({
         element: document.getElementById('board')
     });
-    //board.setPieces("CLASSIC");
+    // board.setPieces("CLASSIC");
     board.setPiece(new Tower({
         position: [9, 7],
         rotation: 3,
@@ -22,8 +22,8 @@ function startGame(){
     let impacts = getImpacts(towerP1);
     console.log("----------------\nImpacted pieces:");
     console.log(impacts);
-    // let towerP2 = board.findTower(1);
-    // checkImpacts(towerP2);
+    //let towerP2 = board.findTower(1);
+    //checkImpacts(towerP2);
 }
 
 function getImpacts(tower){
@@ -39,6 +39,7 @@ function getImpacts(tower){
         let lastPiece = impactPieces[impactPieces.length-1];
 
         switch(lastPiece.rotation){
+            // Up
             case 0:
                 impactRow = lastPiece.position[1]-1;
                 impactCol = lastPiece.position[0];
@@ -46,6 +47,7 @@ function getImpacts(tower){
                     impactRow--;
                 shotLength = lastPiece.position[1]-impactRow-1;
                 break;
+            // Right
             case 1:
                 impactRow = lastPiece.position[1];
                 impactCol = lastPiece.position[0]+1;
@@ -53,6 +55,7 @@ function getImpacts(tower){
                     impactCol++;
                 shotLength = impactCol-lastPiece.position[0]-1;
                 break;
+            // Down
             case 2:
                 impactRow = lastPiece.position[1]+1;
                 impactCol = lastPiece.position[0];
@@ -60,6 +63,7 @@ function getImpacts(tower){
                     impactRow++;
                 shotLength = impactRow-lastPiece.position[1]-1;
                 break;
+            // Left
             case 3:
                 impactRow = lastPiece.position[1];
                 impactCol = lastPiece.position[0]-1;
@@ -78,11 +82,11 @@ function getImpacts(tower){
             impactPieces.push(null);
         }
 
-        console.log("Impact Nº: "+impactPieces.length);
-        console.log("Piece: "+impactPieces[impactPieces.length-1].constructor.name);
-        console.log("Position: ["+impactCol+", "+impactRow+"]");
-        console.log("Direction of the shot: "+lastPiece.rotation);
-        console.log("Shot length: "+shotLength);
+        console.log(`Impact N: ${impactPieces.length}`);
+        console.log(`Piece: ${impactPieces[impactPieces.length-1].constructor.name}`);
+        console.log(`Position: [${impactCol}, ${impactRow}]`);
+        console.log(`Direction of the shot: ${lastPiece.rotation}`);
+        console.log(`Shot length: ${shotLength}`);
 
     }while(impactPieces[impactPieces.length-1] !== null && false);
 
